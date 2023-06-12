@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import "./App.css";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -7,10 +8,10 @@ import Members from "./pages/Members";
 import SongList from "./pages/SongList";
 import Songbird from "./pages/Songbird";
 import SongDetail from "./pages/SongDetail";
-import "./App.css";
+import Player from "./pages/Player";
+import PlayerIndex from "./pages/PlayerIndex";
 
 function App() {
-    // 멤버 정보 나중에 Garnet Crow 로 바꿉니다
     const [members] = useState([
         // 화면의 내용을 리랜더링 하는 변수 :state
         // state 변수 만드는 방법
@@ -25,7 +26,7 @@ function App() {
     ]);
     // 노래정보
     const [songs] = useState([
-        { id: 1, title: "Fallin' for you", musician: "Colbie callet", youtube_link: "PABUl_EX_hw" },
+        { id: 1, title: "HELP!", musician: "-BOA", youtube_link: "D3IDK_R1LTg" },
         { id: 2, title: "Can't hurry love", musician: "The supremes", youtube_link: "EJDPhjQft04" },
         { id: 3, title: "Landslide", musician: "Dixie chicks", youtube_link: "V2N7gYom9-A" },
         { id: 4, title: "Can't let go", musician: "Linda ronstadt", youtube_link: "P-EpGKXmoe4" },
@@ -48,10 +49,14 @@ function App() {
                     {/* <Route path="" element={<컴포넌트 속성명 = "값" />} */}
                     <Route path="/about" element={<About title="인디벤드" />} />
                     <Route path="/member" element={<Members members={members} />} />
-                    <Route path="/songlist" element={<SongList songs={songs} />} />
+                    {/* nested 라우트 */}
+                    <Route path="/songlist" element={<SongList songs={songs} />}>
+                        {/* 중첩된 라우트 첫페이지 index */}
+                        <Route index element={<PlayerIndex />} />
+                        {/* 웹브라우저 주소 : /songs/1 URL parameter 리턴 { id:1 } */}
+                        <Route path=":id" element={<Player/>} />
+                    </Route>
                     <Route path="/songbird" element={<Songbird />} />
-                    {/* 웹브라우저 주소 : /songs/1 URL parameter 리턴 { id:1 } */}
-                    <Route path="/songs/:id" element={<SongDetail songs={songs} />} />
                 </Routes>
             </div>
         </>

@@ -1,7 +1,7 @@
 import React from "react";
 
 const Songbird = () => {
-    return <div>Songbird</div>;
+    return <div>이건 왜 만들어놨지?</div>;
 };
 
 export default Songbird;
